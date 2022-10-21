@@ -33,14 +33,13 @@ export default class FavoritesStore {
 
     const promises = ids.map(id => getHouseApi({ id: id }));
 
-    Promise.allSettled(promises).then(results => {
-      const res = results.map((i, index) => ({
+    await Promise.allSettled(promises).then(results => {
+      const favoriteHouses = results.map((i, index) => ({
         ...favoritesLs[index],
         isNotFound: i.status !== 'fulfilled',
       }));
-      this.setFavoriteHouses(res);
+      this.setFavoriteHouses(favoriteHouses);
     });
-
     this.setIsLoadingFavoriteHouses(false);
   }
 
