@@ -20,7 +20,7 @@ export default class HousesStore {
 
   async getHouses(params: housesRequestParams): Promise<void> {
     this.setIsLoadingHouses(true);
-    const houses = (await getHousesApi(params)) ?? [];
+    const houses = await getHousesApi(params);
     this.setHouses(houses);
     this.setIsLoadingHouses(false);
   }
