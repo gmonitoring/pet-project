@@ -1,6 +1,6 @@
-import { RootStore } from "../rootStore";
-import { getHouseApi, House } from "../../api/houses/houses";
-import { makeObservable, observable, action } from "mobx";
+import { RootStore } from '../rootStore';
+import { getHouseApi, House } from '../../api/houses/houses';
+import { makeObservable, observable, action } from 'mobx';
 
 export type FavoriteHouse = House & { isNotFound: boolean };
 
@@ -16,18 +16,18 @@ export default class FavoritesStore {
       favoritesHouses: observable,
       getFavoriteHouses: action,
       setFavoriteHouses: action,
-      setIsLoadingFavoriteHouses: action
+      setIsLoadingFavoriteHouses: action,
     });
   }
 
   async getFavoriteHouses(): Promise<void> {
     this.setIsLoadingFavoriteHouses(true);
-    const lsFavoritesHouse = window.localStorage.getItem("favoritesHouse") ?? "[]";
+    const lsFavoritesHouse = window.localStorage.getItem('favoritesHouse') ?? '[]';
 
     const favoritesLs: Array<FavoriteHouse> = JSON.parse(lsFavoritesHouse);
 
     const ids: Array<string> = favoritesLs.map(i => {
-      const split = i.url.split("/");
+      const split = i.url.split('/');
       return split[split.length - 1];
     });
 
@@ -36,7 +36,7 @@ export default class FavoritesStore {
     await Promise.allSettled(promises).then(results => {
       const favoriteHouses = results.map((i, index) => ({
         ...favoritesLs[index],
-        isNotFound: i.status !== "fulfilled"
+        isNotFound: i.status !== 'fulfilled',
       }));
       this.setFavoriteHouses(favoriteHouses);
       this.setIsLoadingFavoriteHouses(false);
@@ -49,7 +49,7 @@ export default class FavoritesStore {
 
   setFavoriteHouses(favorites: Array<FavoriteHouse>) {
     this.favoritesHouses = favorites;
-    window.localStorage.setItem("favoritesHouse", JSON.stringify(favorites));
+    window.localStorage.setItem('favoritesHouse', JSON.stringify(favorites));
   }
 
   addFavorite = (item: FavoriteHouse) => {
