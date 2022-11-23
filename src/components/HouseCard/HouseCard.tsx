@@ -47,7 +47,7 @@ const HouseCard: FC<HouseCardProps> = observer(({ item, isNotFound = false }) =>
         </CardContent>
         <CardActions>
           <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-            {favoritesStore?.favoritesHouses?.find(i => i.url === item.url) ? (
+            {favoritesStore.favoritesHouses.find(i => i.url === item.url) ? (
               <IconButton size="small" onClick={handleRemoveFavorite}>
                 <StarIcon />
               </IconButton>
