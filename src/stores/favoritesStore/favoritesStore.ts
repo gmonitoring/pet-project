@@ -53,14 +53,7 @@ export default class FavoritesStore {
   }
 
   addFavorite = (item: FavoriteHouse) => {
-    let newFavoriteHouses: Array<FavoriteHouse>;
-
-    if (this.favoritesHouses.length === 0) {
-      newFavoriteHouses = [{ ...item, isNotFound: item.isNotFound }];
-    } else {
-      const house: FavoriteHouse = { ...item, isNotFound: item.isNotFound };
-      newFavoriteHouses = [...this.favoritesHouses, house];
-    }
+    const newFavoriteHouses: Array<FavoriteHouse> = [...this.favoritesHouses, item];
     this.setFavoriteHouses(newFavoriteHouses);
   };
 
